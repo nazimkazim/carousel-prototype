@@ -55,6 +55,13 @@ arrowRight.addEventListener('click', () => {
   if (increment >= data.length - 1) {
     arrowRight.disabled = true;
   }
+
+  dot[increment].classList.add('active');
+  dot.forEach((item, idx) => {
+    if (increment !== idx) {
+      item.classList.remove('active');
+    }
+  });
 });
 
 arrowLeft.addEventListener('click', () => {
@@ -67,6 +74,14 @@ arrowLeft.addEventListener('click', () => {
   if (increment <= 0) {
     arrowLeft.disabled = true;
   }
+
+  dot[increment].classList.add('active');
+  dot.forEach((item, idx) => {
+    if (increment !== idx) {
+      item.classList.remove('active');
+    }
+  });
+
 });
 
 dot.forEach((item, index) => {
@@ -100,7 +115,6 @@ dot.forEach((item, index) => {
         }
       });
     }
-    //console.log(Array.from(item.classList).includes('active'));
   });
 });
 
