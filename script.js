@@ -32,6 +32,8 @@ const dotsContainer = document.querySelector('.dots_container');
 
 let increment = 0;
 
+const total = data.length - 1;
+
 data.forEach(_ => {
   const dot = document.createElement('div');
   dot.className = 'dot';
@@ -48,11 +50,11 @@ const renderContent = () => {
 
 renderContent();
 
-arrowLeft.disabled = true;
-
 const setDisabled = (el, bool) => {
   el.disabled = bool;
 };
+
+setDisabled(arrowLeft, true);
 
 const setActive = () => {
   dot[increment].classList.add('active');
@@ -68,8 +70,8 @@ arrowRight.addEventListener('click', () => {
   increment += 1;
   renderContent();
 
-  if (increment >= data.length - 1) {
-    arrowRight.disabled = true;
+  if (increment >= total) {
+    setDisabled(arrowRight, true);
   }
   setActive();
 });
@@ -89,7 +91,7 @@ dot.forEach((item, index) => {
     increment = index;
     renderContent();
 
-    if (increment >= data.length - 1) {
+    if (increment >= total) {
       setDisabled(arrowRight, true);
       setDisabled(arrowLeft, false);
     }
@@ -99,7 +101,7 @@ dot.forEach((item, index) => {
       setDisabled(arrowRight, false);
     }
 
-    if ((increment < data.length - 1) && (increment > 0)) {
+    if ((increment < total) && (increment > 0)) {
       setDisabled(arrowLeft, false);
       setDisabled(arrowRight, false);
     }
