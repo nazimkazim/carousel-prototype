@@ -40,57 +40,52 @@ data.forEach(_ => {
 
 const dot = document.querySelectorAll('.dot');
 
-avatarImg.src = data[increment].photo;
-user_name.innerHTML = data[increment].name;
-user_content.innerHTML = data[increment].content;
-arrowLeft.disabled = true;
-
-arrowRight.addEventListener('click', () => {
-  arrowLeft.disabled = false;
-  increment += 1;
+const renderContent = () => {
   avatarImg.src = data[increment].photo;
   user_name.innerHTML = data[increment].name;
   user_content.innerHTML = data[increment].content;
+};
 
-  if (increment >= data.length - 1) {
-    arrowRight.disabled = true;
-  }
+renderContent();
 
+arrowLeft.disabled = true;
+
+const setActive = () => {
   dot[increment].classList.add('active');
   dot.forEach((item, idx) => {
     if (increment !== idx) {
       item.classList.remove('active');
     }
   });
+};
+
+
+
+arrowRight.addEventListener('click', () => {
+  arrowLeft.disabled = false;
+  increment += 1;
+  renderContent();
+
+  if (increment >= data.length - 1) {
+    arrowRight.disabled = true;
+  }
+  setActive();
 });
 
 arrowLeft.addEventListener('click', () => {
   arrowRight.disabled = false;
   increment -= 1;
-  avatarImg.src = data[increment].photo;
-  user_name.innerHTML = data[increment].name;
-  user_content.innerHTML = data[increment].content;
-
+  renderContent();
   if (increment <= 0) {
     arrowLeft.disabled = true;
   }
-
-  dot[increment].classList.add('active');
-  dot.forEach((item, idx) => {
-    if (increment !== idx) {
-      item.classList.remove('active');
-    }
-  });
-
+  setActive();
 });
 
 dot.forEach((item, index) => {
-
   item.addEventListener('click', () => {
     increment = index;
-    avatarImg.src = data[increment].photo;
-    user_name.innerHTML = data[increment].name;
-    user_content.innerHTML = data[increment].content;
+    renderContent();
 
     if (increment >= data.length - 1) {
       arrowRight.disabled = true;
@@ -108,12 +103,7 @@ dot.forEach((item, index) => {
     }
 
     if (increment === index) {
-      item.classList.add('active');
-      dot.forEach((item, idx) => {
-        if (increment !== idx) {
-          item.classList.remove('active');
-        }
-      });
+      setActive();
     }
   });
 });
