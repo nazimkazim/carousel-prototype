@@ -50,6 +50,10 @@ renderContent();
 
 arrowLeft.disabled = true;
 
+const setDisabled = (el, bool) => {
+  el.disabled = bool;
+};
+
 const setActive = () => {
   dot[increment].classList.add('active');
   dot.forEach((item, idx) => {
@@ -59,10 +63,8 @@ const setActive = () => {
   });
 };
 
-
-
 arrowRight.addEventListener('click', () => {
-  arrowLeft.disabled = false;
+  setDisabled(arrowLeft, false);
   increment += 1;
   renderContent();
 
@@ -73,11 +75,11 @@ arrowRight.addEventListener('click', () => {
 });
 
 arrowLeft.addEventListener('click', () => {
-  arrowRight.disabled = false;
+  setDisabled(arrowRight, false);
   increment -= 1;
   renderContent();
   if (increment <= 0) {
-    arrowLeft.disabled = true;
+    setDisabled(arrowLeft, true);
   }
   setActive();
 });
@@ -88,18 +90,18 @@ dot.forEach((item, index) => {
     renderContent();
 
     if (increment >= data.length - 1) {
-      arrowRight.disabled = true;
-      arrowLeft.disabled = false;
+      setDisabled(arrowRight, true);
+      setDisabled(arrowLeft, false);
     }
 
     if (increment <= 0) {
-      arrowLeft.disabled = true;
-      arrowRight.disabled = false;
+      setDisabled(arrowLeft, true);
+      setDisabled(arrowRight, false);
     }
 
     if ((increment < data.length - 1) && (increment > 0)) {
-      arrowLeft.disabled = false;
-      arrowRight.disabled = false;
+      setDisabled(arrowLeft, false);
+      setDisabled(arrowRight, false);
     }
 
     if (increment === index) {
